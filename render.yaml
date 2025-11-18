@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: nfl-skins-tracker
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    
+  - type: cron
+    name: nfl-skins-updater
+    env: node
+    plan: free
+    schedule: "0 */1 * * *"  # Every hour
+    buildCommand: npm install
+    startCommand: node update-results.js

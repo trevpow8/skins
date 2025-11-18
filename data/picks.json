@@ -41,7 +41,7 @@
       {
         "id": "player2", 
         "name": "Chuck",
-        "photoUrl": "img/chris.jpg",
+        "photoUrl": "img/locker.jpg",
         "picks": [
         {
             "team": "BUF",
@@ -243,11 +243,11 @@
             "type": "losses",
             "teamName": "Cleveland Browns"
           },
-           {
-             "team": "LV",
-             "type": "losses",
-             "teamName": "Las Vegas Raiders"
-           },
+          {
+            "team": "LVR",
+            "type": "losses",
+            "teamName": "Las Vegas Raiders"
+          },
           {
             "team": "CHI",
             "type": "losses",

@@ -1,8 +1,22 @@
 # NFL Skins Tracker - Deployment Guide
 
-## 🚀 Deploy to Railway (Recommended)
+## 🚀 Free Hosting Options
 
-Railway provides free hosting with automatic cron jobs - perfect for the NFL Skins tracker.
+### Option 1: Render (Recommended)
+- ✅ **750 hours/month free** (31+ days of 24/7 hosting)
+- ✅ **Free cron jobs**
+- ✅ **GitHub integration**
+- ✅ **Automatic HTTPS**
+
+### Option 2: Vercel + GitHub Actions  
+- ✅ **Unlimited free hosting**
+- ✅ **GitHub Actions for updates** (2000 minutes/month)
+- ✅ **Excellent performance**
+
+### Option 3: Netlify + GitHub Actions
+- ✅ **Free hosting**
+- ✅ **GitHub Actions for updates**
+- ✅ **Easy setup**
 
 ### Step 1: Prepare Your Code
 
@@ -16,25 +30,52 @@ Railway provides free hosting with automatic cron jobs - perfect for the NFL Ski
    git push -u origin main
    ```
 
-### Step 2: Deploy to Railway
+### Step 2A: Deploy to Render
 
-1. **Sign up at Railway**
-   - Go to [railway.app](https://railway.app)
+1. **Sign up at Render**
+   - Go to [render.com](https://render.com)
    - Sign up with your GitHub account
 
-2. **Create New Project**
+2. **Create Web Service**
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+   - **Plan**: Free
+
+3. **Add Cron Job (Optional)**
+   - Click "New +" → "Cron Job"
+   - Connect same repository
+   - **Build Command**: `npm install`
+   - **Start Command**: `node update-results.js`
+   - **Schedule**: `0 */1 * * *` (every hour)
+
+### Step 2B: Deploy to Vercel
+
+1. **Sign up at Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Sign up with your GitHub account
+
+2. **Import Project**
    - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Choose your `nfl-skins-tracker` repository
+   - Import your GitHub repository
+   - Vercel auto-detects Node.js settings
 
-3. **Configure Environment**
-   - Railway will automatically detect it's a Node.js project
-   - The `railway.json` file will configure the deployment
-   - No additional environment variables needed
+3. **Enable GitHub Actions**
+   - The `.github/workflows/update-nfl-results.yml` will handle updates
+   - No additional setup needed
 
-4. **Deploy**
-   - Railway will automatically build and deploy
-   - You'll get a URL like `https://your-app-name.railway.app`
+### Step 2C: Deploy to Netlify
+
+1. **Sign up at Netlify**
+   - Go to [netlify.com](https://netlify.com)
+   - Sign up with your GitHub account
+
+2. **Deploy Site**
+   - "Add new site" → "Import from Git"
+   - Choose your repository
+   - **Build command**: `npm run build` (if needed)
+   - **Publish directory**: `.` (root)
 
 ### Step 3: Verify Deployment
 

@@ -1,0 +1,4426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Skins Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>NFL Skins Tracker</h1>
+            <div class="season-info">
+                <span id="season-year">2025 Season</span>
+                <span id="current-week">Week 12</span>
+                <span id="last-updated">Last Updated: <span id="update-time">--</span></span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Net Debts Section -->
+            <section class="debts-section">
+                <h2>Current Standings</h2>
+                <div class="table-container">
+                    <table class="debts-table">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Total Skins</th>
+                                <th>Net Position</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debts-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Weekly Results Section -->
+            <section class="weekly-section">
+                <h2>Weekly Results</h2>
+                <div id="weekly-results">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Player Picks Section -->
+            <section class="picks-section">
+                <h2>Player Picks</h2>
+                <div class="table-container">
+                    <table class="picks-table">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Team</th>
+                                <th>Pick Type</th>
+                                <th>Current Record</th>
+                            </tr>
+                        </thead>
+                        <tbody id="picks-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    
+<script>
+// Embedded data for static hosting
+window.SKINS_DATA = {
+    picks: {
+  "season": "2025",
+  "players": [
+    {
+      "id": "player1",
+      "name": "PJ",
+      "photoUrl": "img/tip.png",
+      "picks": [
+        {
+          "team": "BAL",
+          "type": "wins",
+          "teamName": "Baltimore Ravens"
+        },
+        {
+          "team": "DEN",
+          "type": "wins",
+          "teamName": "Denver Broncos"
+        },
+        {
+          "team": "TB",
+          "type": "wins",
+          "teamName": "Tampa Bay Buccaneers"
+        },
+        {
+          "team": "ATL",
+          "type": "wins",
+          "teamName": "Atlanta Falcons"
+        },
+        {
+          "team": "ARI",
+          "type": "losses",
+          "teamName": "Arizona Cardinals"
+        },
+        {
+          "team": "LV",
+          "type": "wins",
+          "teamName": "Las Vegas Raiders"
+        }
+      ]
+    },
+    {
+      "id": "player2",
+      "name": "Chuck",
+      "photoUrl": "img/chris.jpg",
+      "picks": [
+        {
+          "team": "BUF",
+          "type": "wins",
+          "teamName": "Buffalo Bills"
+        },
+        {
+          "team": "NYJ",
+          "type": "losses",
+          "teamName": "New York Jets"
+        },
+        {
+          "team": "NYG",
+          "type": "losses",
+          "teamName": "New York Giants"
+        },
+        {
+          "team": "NE",
+          "type": "wins",
+          "teamName": "New England Patriots"
+        },
+        {
+          "team": "IND",
+          "type": "losses",
+          "teamName": "Indianapolis Colts"
+        },
+        {
+          "team": "MIN",
+          "type": "losses",
+          "teamName": "Minnesota Vikings"
+        }
+      ]
+    },
+    {
+      "id": "player3",
+      "name": "Bradley OCIII",
+      "photoUrl": "img/brad.png",
+      "picks": [
+        {
+          "team": "PHI",
+          "type": "wins",
+          "teamName": "Philadelphia Eagles"
+        },
+        {
+          "team": "CIN",
+          "type": "wins",
+          "teamName": "Cincinnati Bengals"
+        },
+        {
+          "team": "TEN",
+          "type": "losses",
+          "teamName": "Tennessee Titans"
+        },
+        {
+          "team": "PIT",
+          "type": "wins",
+          "teamName": "Pittsburgh Steelers"
+        },
+        {
+          "team": "CHI",
+          "type": "wins",
+          "teamName": "Chicago Bears"
+        },
+        {
+          "team": "MIA",
+          "type": "wins",
+          "teamName": "Miami Dolphins"
+        }
+      ]
+    },
+    {
+      "id": "player4",
+      "name": "Jet",
+      "photoUrl": "img/noah.png",
+      "picks": [
+        {
+          "team": "DET",
+          "type": "wins",
+          "teamName": "Detroit Lions"
+        },
+        {
+          "team": "WSH",
+          "type": "wins",
+          "teamName": "Washington Commanders"
+        },
+        {
+          "team": "DAL",
+          "type": "losses",
+          "teamName": "Dallas Cowboys"
+        },
+        {
+          "team": "NE",
+          "type": "losses",
+          "teamName": "New England Patriots"
+        },
+        {
+          "team": "HOU",
+          "type": "losses",
+          "teamName": "Houston Texans"
+        },
+        {
+          "team": "SEA",
+          "type": "wins",
+          "teamName": "Seattle Seahawks"
+        }
+      ]
+    },
+    {
+      "id": "player5",
+      "name": "Colton",
+      "photoUrl": "img/colton.jpg",
+      "picks": [
+        {
+          "team": "KC",
+          "type": "wins",
+          "teamName": "Kansas City Chiefs"
+        },
+        {
+          "team": "LAR",
+          "type": "wins",
+          "teamName": "Los Angeles Rams"
+        },
+        {
+          "team": "HOU",
+          "type": "wins",
+          "teamName": "Houston Texans"
+        },
+        {
+          "team": "MIN",
+          "type": "wins",
+          "teamName": "Minnesota Vikings"
+        },
+        {
+          "team": "IND",
+          "type": "wins",
+          "teamName": "Indianapolis Colts"
+        },
+        {
+          "team": "SEA",
+          "type": "losses",
+          "teamName": "Seattle Seahawks"
+        }
+      ]
+    },
+    {
+      "id": "player6",
+      "name": "Pernecky",
+      "photoUrl": "img/habs.png",
+      "picks": [
+        {
+          "team": "GB",
+          "type": "wins",
+          "teamName": "Green Bay Packers"
+        },
+        {
+          "team": "ARI",
+          "type": "wins",
+          "teamName": "Arizona Cardinals"
+        },
+        {
+          "team": "NO",
+          "type": "losses",
+          "teamName": "New Orleans Saints"
+        },
+        {
+          "team": "CAR",
+          "type": "losses",
+          "teamName": "Carolina Panthers"
+        },
+        {
+          "team": "MIA",
+          "type": "losses",
+          "teamName": "Miami Dolphins"
+        },
+        {
+          "team": "JAX",
+          "type": "losses",
+          "teamName": "Jacksonville Jaguars"
+        }
+      ]
+    },
+    {
+      "id": "player7",
+      "name": "Chano",
+      "photoUrl": "img/chano.jpg",
+      "picks": [
+        {
+          "team": "SF",
+          "type": "wins",
+          "teamName": "San Francisco 49ers"
+        },
+        {
+          "team": "LAC",
+          "type": "wins",
+          "teamName": "Los Angeles Chargers"
+        },
+        {
+          "team": "CLE",
+          "type": "losses",
+          "teamName": "Cleveland Browns"
+        },
+        {
+          "team": "LV",
+          "type": "losses",
+          "teamName": "Las Vegas Raiders"
+        },
+        {
+          "team": "CHI",
+          "type": "losses",
+          "teamName": "Chicago Bears"
+        },
+        {
+          "team": "JAX",
+          "type": "wins",
+          "teamName": "Jacksonville Jaguars"
+        }
+      ]
+    }
+  ]
+},
+    results: {
+  "season": "2024",
+  "weeks": [
+    {
+      "week": 1,
+      "games": [
+        {
+          "team": "BUF",
+          "opponent": "BAL",
+          "result": "win",
+          "score": "41-40"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "32-34"
+        },
+        {
+          "team": "KC",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "21-27"
+        },
+        {
+          "team": "DAL",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "20-24"
+        },
+        {
+          "team": "PHI",
+          "opponent": "DAL",
+          "result": "win",
+          "score": "24-20"
+        },
+        {
+          "team": "LAC",
+          "opponent": "KC",
+          "result": "win",
+          "score": "27-21"
+        },
+        {
+          "team": "ATL",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "20-23"
+        },
+        {
+          "team": "TB",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "23-20"
+        },
+        {
+          "team": "CLE",
+          "opponent": "CIN",
+          "result": "loss",
+          "score": "16-17"
+        },
+        {
+          "team": "CIN",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "17-16"
+        },
+        {
+          "team": "IND",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "33-8"
+        },
+        {
+          "team": "MIA",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "8-33"
+        },
+        {
+          "team": "NE",
+          "opponent": "LV",
+          "result": "loss",
+          "score": "13-20"
+        },
+        {
+          "team": "LV",
+          "opponent": "NE",
+          "result": "win",
+          "score": "20-13"
+        },
+        {
+          "team": "NO",
+          "opponent": "ARI",
+          "result": "loss",
+          "score": "13-20"
+        },
+        {
+          "team": "ARI",
+          "opponent": "NO",
+          "result": "win",
+          "score": "20-13"
+        },
+        {
+          "team": "PIT",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "34-32"
+        },
+        {
+          "team": "NYG",
+          "opponent": "WSH",
+          "result": "loss",
+          "score": "6-21"
+        },
+        {
+          "team": "JAX",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "26-10"
+        },
+        {
+          "team": "CAR",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "10-26"
+        },
+        {
+          "team": "DEN",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "20-12"
+        },
+        {
+          "team": "TEN",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "12-20"
+        },
+        {
+          "team": "SEA",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "13-17"
+        },
+        {
+          "team": "SF",
+          "opponent": "SEA",
+          "result": "win",
+          "score": "17-13"
+        },
+        {
+          "team": "GB",
+          "opponent": "DET",
+          "result": "win",
+          "score": "27-13"
+        },
+        {
+          "team": "DET",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "13-27"
+        },
+        {
+          "team": "LAR",
+          "opponent": "HOU",
+          "result": "win",
+          "score": "14-9"
+        },
+        {
+          "team": "HOU",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "9-14"
+        },
+        {
+          "team": "BAL",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "40-41"
+        },
+        {
+          "team": "CHI",
+          "opponent": "MIN",
+          "result": "loss",
+          "score": "24-27"
+        },
+        {
+          "team": "MIN",
+          "opponent": "CHI",
+          "result": "win",
+          "score": "27-24"
+        },
+        {
+          "team": "WSH",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "21-6"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "games": [
+        {
+          "team": "BUF",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "30-10"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "10-30"
+        },
+        {
+          "team": "KC",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "17-20"
+        },
+        {
+          "team": "DAL",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "40-37"
+        },
+        {
+          "team": "GB",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "27-18"
+        },
+        {
+          "team": "CIN",
+          "opponent": "JAX",
+          "result": "win",
+          "score": "31-27"
+        },
+        {
+          "team": "JAX",
+          "opponent": "CIN",
+          "result": "loss",
+          "score": "27-31"
+        },
+        {
+          "team": "NYG",
+          "opponent": "DAL",
+          "result": "loss",
+          "score": "37-40"
+        },
+        {
+          "team": "DET",
+          "opponent": "CHI",
+          "result": "win",
+          "score": "52-21"
+        },
+        {
+          "team": "CHI",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "21-52"
+        },
+        {
+          "team": "TEN",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "19-33"
+        },
+        {
+          "team": "LAR",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "33-19"
+        },
+        {
+          "team": "MIA",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "27-33"
+        },
+        {
+          "team": "NE",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "33-27"
+        },
+        {
+          "team": "NO",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "21-26"
+        },
+        {
+          "team": "SF",
+          "opponent": "NO",
+          "result": "win",
+          "score": "26-21"
+        },
+        {
+          "team": "PIT",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "17-31"
+        },
+        {
+          "team": "SEA",
+          "opponent": "PIT",
+          "result": "win",
+          "score": "31-17"
+        },
+        {
+          "team": "BAL",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "41-17"
+        },
+        {
+          "team": "CLE",
+          "opponent": "BAL",
+          "result": "loss",
+          "score": "17-41"
+        },
+        {
+          "team": "IND",
+          "opponent": "DEN",
+          "result": "win",
+          "score": "29-28"
+        },
+        {
+          "team": "DEN",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "28-29"
+        },
+        {
+          "team": "ARI",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "27-22"
+        },
+        {
+          "team": "CAR",
+          "opponent": "ARI",
+          "result": "loss",
+          "score": "22-27"
+        },
+        {
+          "team": "PHI",
+          "opponent": "KC",
+          "result": "win",
+          "score": "20-17"
+        },
+        {
+          "team": "MIN",
+          "opponent": "ATL",
+          "result": "loss",
+          "score": "6-22"
+        },
+        {
+          "team": "ATL",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "22-6"
+        },
+        {
+          "team": "HOU",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "19-20"
+        },
+        {
+          "team": "TB",
+          "opponent": "HOU",
+          "result": "win",
+          "score": "20-19"
+        },
+        {
+          "team": "LV",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "9-20"
+        },
+        {
+          "team": "LAC",
+          "opponent": "LV",
+          "result": "win",
+          "score": "20-9"
+        },
+        {
+          "team": "WSH",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "18-27"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "games": [
+        {
+          "team": "BUF",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "31-21"
+        },
+        {
+          "team": "MIA",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "21-31"
+        },
+        {
+          "team": "CLE",
+          "opponent": "GB",
+          "result": "win",
+          "score": "13-10"
+        },
+        {
+          "team": "GB",
+          "opponent": "CLE",
+          "result": "loss",
+          "score": "10-13"
+        },
+        {
+          "team": "TEN",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "20-41"
+        },
+        {
+          "team": "IND",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "41-20"
+        },
+        {
+          "team": "MIN",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "48-10"
+        },
+        {
+          "team": "CIN",
+          "opponent": "MIN",
+          "result": "loss",
+          "score": "10-48"
+        },
+        {
+          "team": "NE",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "14-21"
+        },
+        {
+          "team": "PIT",
+          "opponent": "NE",
+          "result": "win",
+          "score": "21-14"
+        },
+        {
+          "team": "PHI",
+          "opponent": "LAR",
+          "result": "win",
+          "score": "33-26"
+        },
+        {
+          "team": "LAR",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "26-33"
+        },
+        {
+          "team": "TB",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "29-27"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "27-29"
+        },
+        {
+          "team": "LV",
+          "opponent": "WSH",
+          "result": "loss",
+          "score": "24-41"
+        },
+        {
+          "team": "CAR",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "30-0"
+        },
+        {
+          "team": "ATL",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "0-30"
+        },
+        {
+          "team": "JAX",
+          "opponent": "HOU",
+          "result": "win",
+          "score": "17-10"
+        },
+        {
+          "team": "HOU",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "10-17"
+        },
+        {
+          "team": "LAC",
+          "opponent": "DEN",
+          "result": "win",
+          "score": "23-20"
+        },
+        {
+          "team": "DEN",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "20-23"
+        },
+        {
+          "team": "SEA",
+          "opponent": "NO",
+          "result": "win",
+          "score": "44-13"
+        },
+        {
+          "team": "NO",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "13-44"
+        },
+        {
+          "team": "CHI",
+          "opponent": "DAL",
+          "result": "win",
+          "score": "31-14"
+        },
+        {
+          "team": "DAL",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "14-31"
+        },
+        {
+          "team": "SF",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "16-15"
+        },
+        {
+          "team": "ARI",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "15-16"
+        },
+        {
+          "team": "NYG",
+          "opponent": "KC",
+          "result": "loss",
+          "score": "9-22"
+        },
+        {
+          "team": "KC",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "22-9"
+        },
+        {
+          "team": "BAL",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "30-38"
+        },
+        {
+          "team": "DET",
+          "opponent": "BAL",
+          "result": "win",
+          "score": "38-30"
+        },
+        {
+          "team": "WSH",
+          "opponent": "LV",
+          "result": "win",
+          "score": "41-24"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "games": [
+        {
+          "team": "ARI",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "20-23"
+        },
+        {
+          "team": "SEA",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "23-20"
+        },
+        {
+          "team": "PIT",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "24-21"
+        },
+        {
+          "team": "MIN",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "21-24"
+        },
+        {
+          "team": "ATL",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "34-27"
+        },
+        {
+          "team": "BUF",
+          "opponent": "NO",
+          "result": "win",
+          "score": "31-19"
+        },
+        {
+          "team": "NO",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "19-31"
+        },
+        {
+          "team": "DET",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "34-10"
+        },
+        {
+          "team": "CLE",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "10-34"
+        },
+        {
+          "team": "NE",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "42-13"
+        },
+        {
+          "team": "CAR",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "13-42"
+        },
+        {
+          "team": "NYG",
+          "opponent": "LAC",
+          "result": "win",
+          "score": "21-18"
+        },
+        {
+          "team": "LAC",
+          "opponent": "NYG",
+          "result": "loss",
+          "score": "18-21"
+        },
+        {
+          "team": "TB",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "25-31"
+        },
+        {
+          "team": "PHI",
+          "opponent": "TB",
+          "result": "win",
+          "score": "31-25"
+        },
+        {
+          "team": "HOU",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "26-0"
+        },
+        {
+          "team": "TEN",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "0-26"
+        },
+        {
+          "team": "LAR",
+          "opponent": "IND",
+          "result": "win",
+          "score": "27-20"
+        },
+        {
+          "team": "IND",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "20-27"
+        },
+        {
+          "team": "SF",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "21-26"
+        },
+        {
+          "team": "JAX",
+          "opponent": "SF",
+          "result": "win",
+          "score": "26-21"
+        },
+        {
+          "team": "KC",
+          "opponent": "BAL",
+          "result": "win",
+          "score": "37-20"
+        },
+        {
+          "team": "BAL",
+          "opponent": "KC",
+          "result": "loss",
+          "score": "20-37"
+        },
+        {
+          "team": "LV",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "24-25"
+        },
+        {
+          "team": "CHI",
+          "opponent": "LV",
+          "result": "win",
+          "score": "25-24"
+        },
+        {
+          "team": "DAL",
+          "opponent": "GB",
+          "result": "tie",
+          "score": "40-40"
+        },
+        {
+          "team": "GB",
+          "opponent": "DAL",
+          "result": "tie",
+          "score": "40-40"
+        },
+        {
+          "team": "MIA",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "27-21"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "MIA",
+          "result": "loss",
+          "score": "21-27"
+        },
+        {
+          "team": "DEN",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "28-3"
+        },
+        {
+          "team": "CIN",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "3-28"
+        },
+        {
+          "team": "WSH",
+          "opponent": "ATL",
+          "result": "loss",
+          "score": "27-34"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "games": [
+        {
+          "team": "LAR",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "23-26"
+        },
+        {
+          "team": "SF",
+          "opponent": "LAR",
+          "result": "win",
+          "score": "26-23"
+        },
+        {
+          "team": "CLE",
+          "opponent": "MIN",
+          "result": "loss",
+          "score": "17-21"
+        },
+        {
+          "team": "MIN",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "21-17"
+        },
+        {
+          "team": "IND",
+          "opponent": "LV",
+          "result": "win",
+          "score": "40-6"
+        },
+        {
+          "team": "LV",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "6-40"
+        },
+        {
+          "team": "NO",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "26-14"
+        },
+        {
+          "team": "NYG",
+          "opponent": "NO",
+          "result": "loss",
+          "score": "14-26"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "DAL",
+          "result": "loss",
+          "score": "22-37"
+        },
+        {
+          "team": "DAL",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "37-22"
+        },
+        {
+          "team": "PHI",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "17-21"
+        },
+        {
+          "team": "DEN",
+          "opponent": "PHI",
+          "result": "win",
+          "score": "21-17"
+        },
+        {
+          "team": "CAR",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "27-24"
+        },
+        {
+          "team": "MIA",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "24-27"
+        },
+        {
+          "team": "BAL",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "10-44"
+        },
+        {
+          "team": "HOU",
+          "opponent": "BAL",
+          "result": "win",
+          "score": "44-10"
+        },
+        {
+          "team": "ARI",
+          "opponent": "TEN",
+          "result": "loss",
+          "score": "21-22"
+        },
+        {
+          "team": "TEN",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "22-21"
+        },
+        {
+          "team": "SEA",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "35-38"
+        },
+        {
+          "team": "TB",
+          "opponent": "SEA",
+          "result": "win",
+          "score": "38-35"
+        },
+        {
+          "team": "CIN",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "24-37"
+        },
+        {
+          "team": "DET",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "37-24"
+        },
+        {
+          "team": "LAC",
+          "opponent": "WSH",
+          "result": "loss",
+          "score": "10-27"
+        },
+        {
+          "team": "BUF",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "20-23"
+        },
+        {
+          "team": "NE",
+          "opponent": "BUF",
+          "result": "win",
+          "score": "23-20"
+        },
+        {
+          "team": "JAX",
+          "opponent": "KC",
+          "result": "win",
+          "score": "31-28"
+        },
+        {
+          "team": "KC",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "28-31"
+        },
+        {
+          "team": "WSH",
+          "opponent": "LAC",
+          "result": "win",
+          "score": "27-10"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "games": [
+        {
+          "team": "NYG",
+          "opponent": "PHI",
+          "result": "win",
+          "score": "34-17"
+        },
+        {
+          "team": "PHI",
+          "opponent": "NYG",
+          "result": "loss",
+          "score": "17-34"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "11-13"
+        },
+        {
+          "team": "DEN",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "13-11"
+        },
+        {
+          "team": "IND",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "31-27"
+        },
+        {
+          "team": "ARI",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "27-31"
+        },
+        {
+          "team": "MIA",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "27-29"
+        },
+        {
+          "team": "LAC",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "29-27"
+        },
+        {
+          "team": "NO",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "19-25"
+        },
+        {
+          "team": "NE",
+          "opponent": "NO",
+          "result": "win",
+          "score": "25-19"
+        },
+        {
+          "team": "PIT",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "23-9"
+        },
+        {
+          "team": "CLE",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "9-23"
+        },
+        {
+          "team": "CAR",
+          "opponent": "DAL",
+          "result": "win",
+          "score": "30-27"
+        },
+        {
+          "team": "DAL",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "27-30"
+        },
+        {
+          "team": "JAX",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "12-20"
+        },
+        {
+          "team": "SEA",
+          "opponent": "JAX",
+          "result": "win",
+          "score": "20-12"
+        },
+        {
+          "team": "BAL",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "3-17"
+        },
+        {
+          "team": "LAR",
+          "opponent": "BAL",
+          "result": "win",
+          "score": "17-3"
+        },
+        {
+          "team": "LV",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "20-10"
+        },
+        {
+          "team": "TEN",
+          "opponent": "LV",
+          "result": "loss",
+          "score": "10-20"
+        },
+        {
+          "team": "GB",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "27-18"
+        },
+        {
+          "team": "CIN",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "18-27"
+        },
+        {
+          "team": "TB",
+          "opponent": "SF",
+          "result": "win",
+          "score": "30-19"
+        },
+        {
+          "team": "SF",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "19-30"
+        },
+        {
+          "team": "KC",
+          "opponent": "DET",
+          "result": "win",
+          "score": "30-17"
+        },
+        {
+          "team": "DET",
+          "opponent": "KC",
+          "result": "loss",
+          "score": "17-30"
+        },
+        {
+          "team": "ATL",
+          "opponent": "BUF",
+          "result": "win",
+          "score": "24-14"
+        },
+        {
+          "team": "BUF",
+          "opponent": "ATL",
+          "result": "loss",
+          "score": "14-24"
+        },
+        {
+          "team": "CHI",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "25-24"
+        },
+        {
+          "team": "WSH",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "24-25"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "games": [
+        {
+          "team": "CIN",
+          "opponent": "PIT",
+          "result": "win",
+          "score": "33-31"
+        },
+        {
+          "team": "PIT",
+          "opponent": "CIN",
+          "result": "loss",
+          "score": "31-33"
+        },
+        {
+          "team": "JAX",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "7-35"
+        },
+        {
+          "team": "LAR",
+          "opponent": "JAX",
+          "result": "win",
+          "score": "35-7"
+        },
+        {
+          "team": "CHI",
+          "opponent": "NO",
+          "result": "win",
+          "score": "26-14"
+        },
+        {
+          "team": "NO",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "14-26"
+        },
+        {
+          "team": "CLE",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "31-6"
+        },
+        {
+          "team": "MIA",
+          "opponent": "CLE",
+          "result": "loss",
+          "score": "6-31"
+        },
+        {
+          "team": "TEN",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "13-31"
+        },
+        {
+          "team": "NE",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "31-13"
+        },
+        {
+          "team": "KC",
+          "opponent": "LV",
+          "result": "win",
+          "score": "31-0"
+        },
+        {
+          "team": "LV",
+          "opponent": "KC",
+          "result": "loss",
+          "score": "0-31"
+        },
+        {
+          "team": "MIN",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "22-28"
+        },
+        {
+          "team": "PHI",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "28-22"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "6-13"
+        },
+        {
+          "team": "CAR",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "13-6"
+        },
+        {
+          "team": "DEN",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "33-32"
+        },
+        {
+          "team": "NYG",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "32-33"
+        },
+        {
+          "team": "LAC",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "24-38"
+        },
+        {
+          "team": "IND",
+          "opponent": "LAC",
+          "result": "win",
+          "score": "38-24"
+        },
+        {
+          "team": "DAL",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "44-22"
+        },
+        {
+          "team": "ARI",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "23-27"
+        },
+        {
+          "team": "GB",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "27-23"
+        },
+        {
+          "team": "SF",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "20-10"
+        },
+        {
+          "team": "ATL",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "10-20"
+        },
+        {
+          "team": "DET",
+          "opponent": "TB",
+          "result": "win",
+          "score": "24-9"
+        },
+        {
+          "team": "TB",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "9-24"
+        },
+        {
+          "team": "SEA",
+          "opponent": "HOU",
+          "result": "win",
+          "score": "27-19"
+        },
+        {
+          "team": "HOU",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "19-27"
+        },
+        {
+          "team": "WSH",
+          "opponent": "DAL",
+          "result": "loss",
+          "score": "22-44"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "games": [
+        {
+          "team": "LAC",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "37-10"
+        },
+        {
+          "team": "MIN",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "10-37"
+        },
+        {
+          "team": "ATL",
+          "opponent": "MIA",
+          "result": "loss",
+          "score": "10-34"
+        },
+        {
+          "team": "MIA",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "34-10"
+        },
+        {
+          "team": "CIN",
+          "opponent": "NYJ",
+          "result": "loss",
+          "score": "38-39"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "39-38"
+        },
+        {
+          "team": "NE",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "32-13"
+        },
+        {
+          "team": "CLE",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "13-32"
+        },
+        {
+          "team": "PHI",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "38-20"
+        },
+        {
+          "team": "NYG",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "20-38"
+        },
+        {
+          "team": "CAR",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "9-40"
+        },
+        {
+          "team": "BUF",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "40-9"
+        },
+        {
+          "team": "BAL",
+          "opponent": "CHI",
+          "result": "win",
+          "score": "30-16"
+        },
+        {
+          "team": "CHI",
+          "opponent": "BAL",
+          "result": "loss",
+          "score": "16-30"
+        },
+        {
+          "team": "HOU",
+          "opponent": "SF",
+          "result": "win",
+          "score": "26-15"
+        },
+        {
+          "team": "SF",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "15-26"
+        },
+        {
+          "team": "NO",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "3-23"
+        },
+        {
+          "team": "TB",
+          "opponent": "NO",
+          "result": "win",
+          "score": "23-3"
+        },
+        {
+          "team": "DEN",
+          "opponent": "DAL",
+          "result": "win",
+          "score": "44-24"
+        },
+        {
+          "team": "DAL",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "24-44"
+        },
+        {
+          "team": "IND",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "38-14"
+        },
+        {
+          "team": "TEN",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "14-38"
+        },
+        {
+          "team": "PIT",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "25-35"
+        },
+        {
+          "team": "GB",
+          "opponent": "PIT",
+          "result": "win",
+          "score": "35-25"
+        },
+        {
+          "team": "KC",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "28-7"
+        },
+        {
+          "team": "WSH",
+          "opponent": "KC",
+          "result": "loss",
+          "score": "7-28"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "games": [
+        {
+          "team": "MIA",
+          "opponent": "BAL",
+          "result": "loss",
+          "score": "6-28"
+        },
+        {
+          "team": "BAL",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "28-6"
+        },
+        {
+          "team": "CIN",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "42-47"
+        },
+        {
+          "team": "CHI",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "47-42"
+        },
+        {
+          "team": "DET",
+          "opponent": "MIN",
+          "result": "loss",
+          "score": "24-27"
+        },
+        {
+          "team": "MIN",
+          "opponent": "DET",
+          "result": "win",
+          "score": "27-24"
+        },
+        {
+          "team": "GB",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "13-16"
+        },
+        {
+          "team": "CAR",
+          "opponent": "GB",
+          "result": "win",
+          "score": "16-13"
+        },
+        {
+          "team": "TEN",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "20-27"
+        },
+        {
+          "team": "LAC",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "27-20"
+        },
+        {
+          "team": "NE",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "24-23"
+        },
+        {
+          "team": "ATL",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "23-24"
+        },
+        {
+          "team": "NYG",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "24-34"
+        },
+        {
+          "team": "SF",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "34-24"
+        },
+        {
+          "team": "PIT",
+          "opponent": "IND",
+          "result": "win",
+          "score": "27-20"
+        },
+        {
+          "team": "IND",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "20-27"
+        },
+        {
+          "team": "HOU",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "15-18"
+        },
+        {
+          "team": "DEN",
+          "opponent": "HOU",
+          "result": "win",
+          "score": "18-15"
+        },
+        {
+          "team": "LV",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "29-30"
+        },
+        {
+          "team": "JAX",
+          "opponent": "LV",
+          "result": "win",
+          "score": "30-29"
+        },
+        {
+          "team": "LAR",
+          "opponent": "NO",
+          "result": "win",
+          "score": "34-10"
+        },
+        {
+          "team": "NO",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "10-34"
+        },
+        {
+          "team": "BUF",
+          "opponent": "KC",
+          "result": "win",
+          "score": "28-21"
+        },
+        {
+          "team": "KC",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "21-28"
+        },
+        {
+          "team": "SEA",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "38-14"
+        },
+        {
+          "team": "DAL",
+          "opponent": "ARI",
+          "result": "loss",
+          "score": "17-27"
+        },
+        {
+          "team": "ARI",
+          "opponent": "DAL",
+          "result": "win",
+          "score": "27-17"
+        },
+        {
+          "team": "WSH",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "14-38"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "games": [
+        {
+          "team": "DEN",
+          "opponent": "LV",
+          "result": "win",
+          "score": "10-7"
+        },
+        {
+          "team": "LV",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "7-10"
+        },
+        {
+          "team": "IND",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "31-25"
+        },
+        {
+          "team": "ATL",
+          "opponent": "IND",
+          "result": "loss",
+          "score": "25-31"
+        },
+        {
+          "team": "CHI",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "24-20"
+        },
+        {
+          "team": "NYG",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "20-24"
+        },
+        {
+          "team": "MIA",
+          "opponent": "BUF",
+          "result": "win",
+          "score": "30-13"
+        },
+        {
+          "team": "BUF",
+          "opponent": "MIA",
+          "result": "loss",
+          "score": "13-30"
+        },
+        {
+          "team": "MIN",
+          "opponent": "BAL",
+          "result": "loss",
+          "score": "19-27"
+        },
+        {
+          "team": "BAL",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "27-19"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "27-20"
+        },
+        {
+          "team": "CLE",
+          "opponent": "NYJ",
+          "result": "loss",
+          "score": "20-27"
+        },
+        {
+          "team": "TB",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "23-28"
+        },
+        {
+          "team": "NE",
+          "opponent": "TB",
+          "result": "win",
+          "score": "28-23"
+        },
+        {
+          "team": "CAR",
+          "opponent": "NO",
+          "result": "loss",
+          "score": "7-17"
+        },
+        {
+          "team": "NO",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "17-7"
+        },
+        {
+          "team": "HOU",
+          "opponent": "JAX",
+          "result": "win",
+          "score": "36-29"
+        },
+        {
+          "team": "JAX",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "29-36"
+        },
+        {
+          "team": "SEA",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "44-22"
+        },
+        {
+          "team": "ARI",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "22-44"
+        },
+        {
+          "team": "SF",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "26-42"
+        },
+        {
+          "team": "LAR",
+          "opponent": "SF",
+          "result": "win",
+          "score": "42-26"
+        },
+        {
+          "team": "DET",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "44-22"
+        },
+        {
+          "team": "LAC",
+          "opponent": "PIT",
+          "result": "win",
+          "score": "25-10"
+        },
+        {
+          "team": "PIT",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "10-25"
+        },
+        {
+          "team": "GB",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "7-10"
+        },
+        {
+          "team": "PHI",
+          "opponent": "GB",
+          "result": "win",
+          "score": "10-7"
+        },
+        {
+          "team": "WSH",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "22-44"
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "games": [
+        {
+          "team": "NYJ",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "14-27"
+        },
+        {
+          "team": "BUF",
+          "opponent": "TB",
+          "result": "win",
+          "score": "44-32"
+        },
+        {
+          "team": "KC",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "19-22"
+        },
+        {
+          "team": "DAL",
+          "opponent": "LV",
+          "result": "win",
+          "score": "33-16"
+        },
+        {
+          "team": "NE",
+          "opponent": "NYJ",
+          "result": "win",
+          "score": "27-14"
+        },
+        {
+          "team": "MIA",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "16-13"
+        },
+        {
+          "team": "ATL",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "27-30"
+        },
+        {
+          "team": "CAR",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "30-27"
+        },
+        {
+          "team": "TB",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "32-44"
+        },
+        {
+          "team": "TEN",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "13-16"
+        },
+        {
+          "team": "HOU",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "16-13"
+        },
+        {
+          "team": "MIN",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "17-19"
+        },
+        {
+          "team": "CHI",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "19-17"
+        },
+        {
+          "team": "NYG",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "20-27"
+        },
+        {
+          "team": "GB",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "27-20"
+        },
+        {
+          "team": "PIT",
+          "opponent": "CIN",
+          "result": "win",
+          "score": "34-12"
+        },
+        {
+          "team": "CIN",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "12-34"
+        },
+        {
+          "team": "JAX",
+          "opponent": "LAC",
+          "result": "win",
+          "score": "35-6"
+        },
+        {
+          "team": "LAC",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "6-35"
+        },
+        {
+          "team": "LAR",
+          "opponent": "SEA",
+          "result": "win",
+          "score": "21-19"
+        },
+        {
+          "team": "SEA",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "19-21"
+        },
+        {
+          "team": "ARI",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "22-41"
+        },
+        {
+          "team": "SF",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "41-22"
+        },
+        {
+          "team": "CLE",
+          "opponent": "BAL",
+          "result": "loss",
+          "score": "16-23"
+        },
+        {
+          "team": "BAL",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "23-16"
+        },
+        {
+          "team": "DEN",
+          "opponent": "KC",
+          "result": "win",
+          "score": "22-19"
+        },
+        {
+          "team": "PHI",
+          "opponent": "DET",
+          "result": "win",
+          "score": "16-9"
+        },
+        {
+          "team": "DET",
+          "opponent": "PHI",
+          "result": "loss",
+          "score": "9-16"
+        },
+        {
+          "team": "LV",
+          "opponent": "DAL",
+          "result": "loss",
+          "score": "16-33"
+        },
+        {
+          "team": "WSH",
+          "opponent": "MIA",
+          "result": "loss",
+          "score": "13-16"
+        }
+      ]
+    }
+  ]
+},
+    debts: {
+  "season": "2025",
+  "lastUpdated": "2025-11-18T23:41:43.732Z",
+  "weeklyResults": [
+    {
+      "week": 1,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "TB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "LV",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "WSH",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DAL",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "NE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "HOU",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "MIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "SEA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "GB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "ARI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "CAR",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CHI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "BAL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "TB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ATL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "MIN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DET",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "HOU",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "GB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "ARI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "CAR",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "JAX",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CHI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "TB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DET",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "WSH",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DAL",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "NE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "HOU",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "KC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "MIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ATL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "IND",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "MIN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "MIA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DET",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "KC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "CAR",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "TB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DET",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "WSH",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "MIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "SEA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "TB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ATL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "LV",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DAL",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "KC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "GB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "JAX",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "MIN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DET",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "HOU",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "KC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "GB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "JAX",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "BAL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "TB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "MIN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "MIA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DAL",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "KC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "GB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "CAR",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CHI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "BAL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "IND",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DAL",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "HOU",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "MIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "ARI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "NO",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "BAL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "MIN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "MIA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DET",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "IND",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "CAR",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "JAX",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "BAL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "MIN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "TEN",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "MIA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "LAR",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "SEA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "GB",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "SF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
+    }
+  ],
+  "netDebts": [
+    {
+      "playerId": "player1",
+      "playerName": "PJ",
+      "totalOwed": 1344,
+      "totalOwing": 1477,
+      "netPosition": -133
+    },
+    {
+      "playerId": "player2",
+      "playerName": "Chuck",
+      "totalOwed": 1722,
+      "totalOwing": 1414,
+      "netPosition": 308
+    },
+    {
+      "playerId": "player3",
+      "playerName": "Bradley OCIII",
+      "totalOwed": 1554,
+      "totalOwing": 1442,
+      "netPosition": 112
+    },
+    {
+      "playerId": "player4",
+      "playerName": "Jet",
+      "totalOwed": 1176,
+      "totalOwing": 1505,
+      "netPosition": -329
+    },
+    {
+      "playerId": "player5",
+      "playerName": "Colton",
+      "totalOwed": 1386,
+      "totalOwing": 1470,
+      "netPosition": -84
+    },
+    {
+      "playerId": "player6",
+      "playerName": "Pernecky",
+      "totalOwed": 1386,
+      "totalOwing": 1470,
+      "netPosition": -84
+    },
+    {
+      "playerId": "player7",
+      "playerName": "Chano",
+      "totalOwed": 1638,
+      "totalOwing": 1428,
+      "netPosition": 210
+    }
+  ]
+}
+};
+</script>
+    <script src="script-static.js"></script>
+</body>
+</html>
