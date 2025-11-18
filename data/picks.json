@@ -1,0 +1,264 @@
+{
+  "season": "2025",
+  "players": [
+      {
+        "id": "player1",
+        "name": "PJ",
+        "photoUrl": "img/tip.png",
+        "picks": [
+        {
+          "team": "BAL",
+          "type": "wins",
+          "teamName": "Baltimore Ravens"
+        },
+        {
+            "team": "DEN",
+            "type": "wins",
+            "teamName": "Denver Broncos"
+          },
+          {
+            "team": "TB",
+            "type": "wins",
+            "teamName": "Tampa Bay Buccaneers"
+          },
+          {
+            "team": "ATL",
+            "type": "wins",
+            "teamName": "Atlanta Falcons"
+          },
+          {
+            "team": "ARI",
+            "type": "losses",
+            "teamName": "Arizona Cardinals"
+          },
+          {
+            "team": "LV",
+            "type": "wins",
+            "teamName": "Las Vegas Raiders"
+          }
+      ]
+    },
+      {
+        "id": "player2", 
+        "name": "Chuck",
+        "photoUrl": "img/chris.jpg",
+        "picks": [
+        {
+            "team": "BUF",
+            "type": "wins",
+            "teamName": "Buffalo Bills"
+          },
+        {
+          "team": "NYJ",
+          "type": "losses",
+          "teamName": "New York Jets"
+        },
+        {
+            "team": "NYG",
+            "type": "losses",
+            "teamName": "New York Giants"
+          },
+          {
+            "team": "NE",
+            "type": "wins",
+            "teamName": "New England Patriots"
+          },
+          {
+            "team": "IND",
+            "type": "losses",
+            "teamName": "Indianapolis Colts"
+          },
+          {
+            "team": "MIN",
+            "type": "losses",
+            "teamName": "Minnesota Vikings"
+          }
+      ]
+    },
+      {
+        "id": "player3",
+        "name": "Bradley OCIII", 
+        "photoUrl": "img/brad.png",
+        "picks": [
+        {
+          "team": "PHI",
+          "type": "wins",
+          "teamName": "Philadelphia Eagles"
+        },
+        {
+            "team": "CIN",
+            "type": "wins",
+            "teamName": "Cincinnati Bengals"
+          },
+          {
+            "team": "TEN",
+            "type": "losses",
+            "teamName": "Tennessee Titans"
+          },
+          {
+            "team": "PIT",
+            "type": "wins",
+            "teamName": "Pittsburgh Steelers"
+          },
+          {
+            "team": "CHI",
+            "type": "wins",
+            "teamName": "Chicago Bears"
+          },
+          {
+            "team": "MIA",
+            "type": "wins",
+            "teamName": "Miami Dolphins"
+          }
+      ]
+    },
+      {
+        "id": "player4",
+        "name": "Jet",
+        "photoUrl": "img/noah.png",
+        "picks": [
+        {
+          "team": "DET",
+          "type": "wins", 
+          "teamName": "Detroit Lions"
+        },
+         {
+           "team": "WSH",
+           "type": "wins",
+           "teamName": "Washington Commanders"
+         },
+        {
+          "team": "DAL",
+          "type": "losses",
+          "teamName": "Dallas Cowboys"
+        },
+        {
+          "team": "NE",
+          "type": "losses",
+          "teamName": "New England Patriots"
+        },
+        {
+          "team": "HOU",
+          "type": "losses",
+          "teamName": "Houston Texans"
+        },
+        {
+            "team": "SEA",
+            "type": "wins",
+            "teamName": "Seattle Seahawks"
+          }
+      ]
+    },
+     {
+         "id": "player5",
+         "name": "Colton",
+         "photoUrl": "img/colton.jpg",
+         "picks": [
+          {
+            "team": "KC",
+            "type": "wins", 
+            "teamName": "Kansas City Chiefs"
+          },
+          {
+            "team": "LAR",
+            "type": "wins",
+            "teamName": "Los Angeles Rams"
+          },
+          {
+            "team": "HOU",
+            "type": "wins",
+            "teamName": "Houston Texans"
+          },
+          {
+            "team": "MIN",
+            "type": "wins",
+            "teamName": "Minnesota Vikings"
+          },
+          {
+            "team": "IND",
+            "type": "wins",
+            "teamName": "Indianapolis Colts"
+          },
+          {
+              "team": "SEA",
+              "type": "losses",
+              "teamName": "Seattle Seahawks"
+            }
+        ]
+      },
+       {
+         "id": "player6",
+         "name": "Pernecky",
+         "photoUrl": "img/habs.png",
+         "picks": [
+          {
+            "team": "GB",
+            "type": "wins", 
+            "teamName": "Green Bay Packers"
+          },
+          {
+            "team": "ARI",
+            "type": "wins",
+            "teamName": "Arizona Cardinals"
+          },
+          {
+            "team": "NO",
+            "type": "losses",
+            "teamName": "New Orleans Saints"
+          },
+          {
+            "team": "CAR",
+            "type": "losses",
+            "teamName": "Carolina Panthers"
+          },
+          {
+            "team": "MIA",
+            "type": "losses",
+            "teamName": "Miami Dolphins"
+          },
+          {
+              "team": "JAX",
+              "type": "losses",
+              "teamName": "Jacksonville Jaguars"
+            }
+        ]
+      },
+       {
+         "id": "player7",
+         "name": "Chano",
+         "photoUrl": "img/chano.jpg",
+         "picks": [
+          {
+            "team": "SF",
+            "type": "wins", 
+            "teamName": "San Francisco 49ers"
+          },
+          {
+            "team": "LAC",
+            "type": "wins",
+            "teamName": "Los Angeles Chargers"
+          },
+          {
+            "team": "CLE",
+            "type": "losses",
+            "teamName": "Cleveland Browns"
+          },
+           {
+             "team": "LV",
+             "type": "losses",
+             "teamName": "Las Vegas Raiders"
+           },
+          {
+            "team": "CHI",
+            "type": "losses",
+            "teamName": "Chicago Bears"
+          },
+          {
+              "team": "JAX",
+              "type": "wins",
+              "teamName": "Jacksonville Jaguars"
+            }
+        ]
+      }
+  ]
+}

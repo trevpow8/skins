@@ -1,0 +1,276 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.season-info {
+    display: flex;
+    gap: 20px;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.season-info span {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* Section Styles */
+section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f7fafc;
+    font-weight: 600;
+    color: #4a5568;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+}
+
+tr:hover {
+    background-color: #f7fafc;
+}
+
+/* Pick Type Badges */
+.pick-wins {
+    background-color: #48bb78;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.pick-losses {
+    background-color: #f56565;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Player Info Styling */
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-photo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
+}
+
+.player-photo-small {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e2e8f0;
+}
+
+/* Net Position Styling */
+.net-positive {
+    color: #38a169;
+    font-weight: 600;
+}
+
+.net-negative {
+    color: #e53e3e;
+    font-weight: 600;
+}
+
+.net-zero {
+    color: #718096;
+    font-weight: 600;
+}
+
+/* Weekly Results */
+.week-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.week-header {
+    background-color: #edf2f7;
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.week-header:hover {
+    background-color: #e2e8f0;
+}
+
+.week-content {
+    padding: 20px;
+    display: none;
+}
+
+.week-content.expanded {
+    display: block;
+}
+
+.hit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.hit-item:last-child {
+    border-bottom: none;
+}
+
+.hit-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-badge {
+    background-color: #4299e1;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.amount-owed {
+    font-weight: 600;
+    color: #38a169;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .season-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    section {
+        padding: 15px;
+    }
+    
+    th, td {
+        padding: 8px 10px;
+        font-size: 0.875rem;
+    }
+    
+    .hit-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #718096;
+}
+
+/* Error State */
+.error {
+    background-color: #fed7d7;
+    color: #c53030;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* Expand/Collapse Icon */
+.expand-icon {
+    transition: transform 0.2s;
+}
+
+.expand-icon.expanded {
+    transform: rotate(180deg);
+}

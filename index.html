@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Skins Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>NFL Skins Tracker</h1>
+            <div class="season-info">
+                <span id="season-year">2025 Season</span>
+                <span id="current-week">Week 12</span>
+                <span id="last-updated">Last Updated: <span id="update-time">--</span></span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Net Debts Section -->
+            <section class="debts-section">
+                <h2>Current Standings</h2>
+                <div class="table-container">
+                    <table class="debts-table">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Total Skins</th>
+                                <th>Net Position</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debts-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Weekly Results Section -->
+            <section class="weekly-section">
+                <h2>Weekly Results</h2>
+                <div id="weekly-results">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Player Picks Section -->
+            <section class="picks-section">
+                <h2>Player Picks</h2>
+                <div class="table-container">
+                    <table class="picks-table">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th>Team</th>
+                                <th>Pick Type</th>
+                                <th>Current Record</th>
+                            </tr>
+                        </thead>
+                        <tbody id="picks-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
