@@ -266,6 +266,18 @@ async function main() {
     
     try {
         await updater.updateResults();
+        
+        // Regenerate player pages with updated data
+        console.log('🔄 Regenerating player biography pages...');
+        const { exec } = require('child_process');
+        exec('node generate-player-pages.js', (error, stdout, stderr) => {
+            if (error) {
+                console.error('⚠️  Warning: Failed to regenerate player pages:', error.message);
+            } else {
+                console.log('✅ Player biography pages updated');
+            }
+        });
+        
         console.log('Update completed successfully');
         process.exit(0);
     } catch (error) {

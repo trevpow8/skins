@@ -89,11 +89,28 @@ exec('node update-results.js', (error, stdout, stderr) => {
 fs.writeFileSync('build/update-static.js', updateScript);
 fs.chmodSync('build/update-static.js', '755');
 
+// Copy player pages
+const playersDir = path.join('build', 'players');
+if (!fs.existsSync(playersDir)) {
+    fs.mkdirSync(playersDir);
+}
+
+if (fs.existsSync('players')) {
+    const playerFiles = fs.readdirSync('players');
+    playerFiles.forEach(file => {
+        if (file.endsWith('.html')) {
+            fs.copyFileSync(path.join('players', file), path.join(playersDir, file));
+        }
+    });
+    console.log(`📄 Copied ${playerFiles.length} player biography pages`);
+}
+
 console.log('✅ Static build complete!');
 console.log('📁 Files created in build/ directory:');
 console.log('   • index.html (with embedded data)');
 console.log('   • script-static.js (modified for static hosting)');
 console.log('   • styles.css (copied)');
+console.log('   • players/ (biography pages)');
 console.log('   • update-static.js (manual update script)');
 console.log('');
 console.log('📤 Upload the build/ folder to any static hosting platform:');

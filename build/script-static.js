@@ -73,7 +73,7 @@ class SkinsTracker {
                         <div class="player-info">
                             <img src="${player.photoUrl || 'https://via.placeholder.com/32x32?text=?'}" 
                                  alt="${player.name}" class="player-photo">
-                            <span>${player.name}</span>
+                            <a href="players/${player.id}.html" class="player-link">${player.name}</a>
                         </div>
                     </td>
                     <td>${pick.team} - ${pick.teamName}</td>
@@ -135,7 +135,7 @@ class SkinsTracker {
                 <td>
                     <div class="player-info">
                         <img src="${photoUrl}" alt="${standing.playerName}" class="player-photo">
-                        <span>${standing.playerName}</span>
+                        <a href="players/${standing.playerId}.html" class="player-link">${standing.playerName}</a>
                     </div>
                 </td>
                 <td>${standing.totalSkins}</td>
@@ -174,8 +174,10 @@ class SkinsTracker {
         
         // Calculate net positions
         Object.values(playerSkins).forEach(player => {
+            // Each skin earns $42 (6 other players × $7)
+            // Each other player's skin costs you $7
             const otherPlayersTotalSkins = totalSkinsAcrossAllPlayers - player.totalSkins;
-            const netPosition = (42 * player.totalSkins) - (7 * otherPlayersTotalSkins);
+            const netPosition = (player.totalSkins * 42) - (otherPlayersTotalSkins * 7);
             
             standings.push({
                 playerId: player.playerId,
@@ -232,7 +234,7 @@ class SkinsTracker {
                     <div class="hit-details">
                         <div class="player-info">
                             <img src="${photoUrl}" alt="${hit.playerName}" class="player-photo-small">
-                            <strong>${hit.playerName}</strong>
+                            <a href="players/${hit.playerId}.html" class="player-link"><strong>${hit.playerName}</strong></a>
                         </div>
                         <span class="team-badge">${hit.team}</span>
                         <span class="pick-${hit.type}">${hit.type}</span>

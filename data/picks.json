@@ -5,6 +5,12 @@
         "id": "player1",
         "name": "PJ",
         "photoUrl": "img/tip.png",
+        "bio": {
+          "fullName": "Jon Tiptonial",
+          "nickname": "PJ",
+          "bio": "PJ",
+          "quote": "(Really High Pitched) Third floor lets go!"
+        },
         "picks": [
         {
           "team": "BAL",
@@ -42,6 +48,12 @@
         "id": "player2", 
         "name": "Chuck",
         "photoUrl": "img/locker.jpg",
+        "bio": {
+          "fullName": "Chuck Wilson",
+          "nickname": "The Gambler",
+          "bio": "Chuck",
+          "quote": "What's worse, what's up buddy or what's up (blank)?"
+        },
         "picks": [
         {
             "team": "BUF",
@@ -79,6 +91,12 @@
         "id": "player3",
         "name": "Bradley OCIII", 
         "photoUrl": "img/brad.png",
+        "bio": {
+          "fullName": "Bradley O'Connor III",
+          "nickname": "The Third",
+          "bio": "BOC3 is",
+          "quote": "What Happened?"
+        },
         "picks": [
         {
           "team": "PHI",
@@ -116,6 +134,12 @@
         "id": "player4",
         "name": "Jet",
         "photoUrl": "img/noah.png",
+        "bio": {
+          "fullName": "Jet Martinez",
+          "nickname": "Speed Demon",
+          "bio": "Jet",
+          "quote": "I'll think of one later"
+        },
         "picks": [
         {
           "team": "DET",
@@ -153,6 +177,12 @@
          "id": "player5",
          "name": "Colton",
          "photoUrl": "img/colton.jpg",
+         "bio": {
+           "fullName": "Colton Reed",
+           "nickname": "The Underdog",
+           "bio": "Colton",
+           "quote": "First Del Mar, then South Central"
+         },
          "picks": [
           {
             "team": "KC",
@@ -190,6 +220,12 @@
          "id": "player6",
          "name": "Pernecky",
          "photoUrl": "img/habs.png",
+         "bio": {
+           "fullName": "Mike Pernecky",
+           "nickname": "The Veteran",
+           "bio": "Habs",
+           "quote": "ChammyDooDah went to town, riding on a PONY"
+         },
          "picks": [
           {
             "team": "GB",
@@ -227,6 +263,12 @@
          "id": "player7",
          "name": "Chano",
          "photoUrl": "img/chano.jpg",
+         "bio": {
+           "fullName": "Chano Rodriguez",
+           "nickname": "The Wildcard",
+           "bio": "Chno",
+           "quote": "I will be sleeping in the sand"
+         },
          "picks": [
           {
             "team": "SF",
@@ -244,7 +286,7 @@
             "teamName": "Cleveland Browns"
           },
           {
-            "team": "LVR",
+            "team": "LV",
             "type": "losses",
             "teamName": "Las Vegas Raiders"
           },
