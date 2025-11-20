@@ -175,7 +175,8 @@ class NFLResultsUpdater {
         // Recalculate debts
         await this.calculateDebts(picks, results);
         
-        console.log('NFL results update completed');
+        const totalGames = results.weeks.reduce((sum, week) => sum + week.games.length, 0);
+        console.log(`✅ NFL results update completed - ${results.weeks.length} weeks, ${totalGames} games processed`);
     }
 
     async calculateDebts(picks, results) {
@@ -278,10 +279,20 @@ async function main() {
             }
         });
         
-        console.log('Update completed successfully');
+        console.log('✅ Update completed successfully');
         process.exit(0);
     } catch (error) {
-        console.error('Update failed:', error);
+        console.error('❌ Update failed:', error.message);
+        
+        // Don't fail the workflow for common issues
+        if (error.message.includes('timeout') || 
+            error.message.includes('ENOTFOUND') || 
+            error.message.includes('ECONNRESET') ||
+            error.message.includes('No games found')) {
+            console.log('⚠️  This appears to be a temporary network issue or no games scheduled. Exiting gracefully.');
+            process.exit(0);
+        }
+        
         process.exit(1);
     }
 }

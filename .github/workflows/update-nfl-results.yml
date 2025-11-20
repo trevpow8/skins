@@ -2,10 +2,20 @@ name: Update NFL Results
 
 on:
   schedule:
-    # Run every hour during NFL season (Sep-Feb)
-    - cron: '0 */1 * 9-12,1-2 *'
-    # Run daily at 6 AM UTC as backup
-    - cron: '0 6 * * *'
+    # NFL games are typically:
+    # Sunday: 1 PM, 4:25 PM, 8:20 PM ET (18:00, 21:25, 01:20 UTC Mon)
+    # Monday: 8:15 PM ET (01:15 UTC Tue) 
+    # Thursday: 8:15 PM ET (01:15 UTC Fri)
+    
+    # Run after Sunday games (Monday 2 AM, 6 AM, 10 AM UTC)
+    - cron: '0 2,6,10 * 9-12,1-2 1'  # Mondays during NFL season
+    # Run after Monday games (Tuesday 6 AM UTC)  
+    - cron: '0 6 * 9-12,1-2 2'        # Tuesdays during NFL season
+    # Run after Thursday games (Friday 6 AM UTC)
+    - cron: '0 6 * 9-12,1-2 5'        # Fridays during NFL season
+    # Run after Saturday playoff games (Sunday 6 AM UTC)
+    - cron: '0 6 * 1-2 0'             # Sundays in Jan-Feb for playoffs
+    
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -26,7 +36,22 @@ jobs:
       run: npm ci
       
     - name: Update NFL results
-      run: node update-results.js
+      run: |
+        echo "Starting NFL results update..."
+        timeout 300 node update-results.js || {
+          exit_code=$?
+          if [ $exit_code -eq 124 ]; then
+            echo "Update timed out after 5 minutes"
+            exit 1
+          elif [ $exit_code -eq 0 ]; then
+            echo "Update completed successfully"
+            exit 0
+          else
+            echo "Update failed with exit code $exit_code"
+            exit $exit_code
+          fi
+        }
+      timeout-minutes: 10
       
     - name: Commit and push if changed
       run: |
