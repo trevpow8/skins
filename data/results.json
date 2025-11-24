@@ -2170,6 +2170,18 @@
           "opponent": "HOU",
           "result": "loss",
           "score": "19-23"
+        },
+        {
+          "team": "LAR",
+          "opponent": "TB",
+          "result": "win",
+          "score": "34-7"
+        },
+        {
+          "team": "TB",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "7-34"
         }
       ]
     }
