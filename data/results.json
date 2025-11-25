@@ -2182,6 +2182,18 @@
           "opponent": "LAR",
           "result": "loss",
           "score": "7-34"
+        },
+        {
+          "team": "SF",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "20-9"
+        },
+        {
+          "team": "CAR",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "9-20"
         }
       ]
     }
