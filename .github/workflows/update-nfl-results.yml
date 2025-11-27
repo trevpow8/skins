@@ -8,13 +8,13 @@ on:
     # Thursday: 8:15 PM ET (01:15 UTC Fri)
     
     # Run after Sunday games (Monday 2 AM, 6 AM, 10 AM UTC)
-    - cron: '0 2,6,10 * 9-12,1-2 1'  # Mondays during NFL season
+    #- cron: '0 6 * 9-12,1-2 1'  # Mondays during NFL season
     # Run after Monday games (Tuesday 6 AM UTC)  
     - cron: '0 6 * 9-12,1-2 2'        # Tuesdays during NFL season
     # Run after Thursday games (Friday 6 AM UTC)
-    - cron: '0 6 * 9-12,1-2 5'        # Fridays during NFL season
+    #- cron: '0 6 * 9-12,1-2 5'        # Fridays during NFL season
     # Run after Saturday playoff games (Sunday 6 AM UTC)
-    - cron: '0 6 * 1-2 0'             # Sundays in Jan-Feb for playoffs
+    #- cron: '0 6 * 1-2 0'             # Sundays in Jan-Feb for playoffs
     
   workflow_dispatch: # Allow manual trigger
 
