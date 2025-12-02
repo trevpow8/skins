@@ -12,12 +12,27 @@ class NFLResultsUpdater {
     }
 
     getCurrentNFLWeek() {
-        // Simple calculation - NFL season typically starts in September
-        // This is a basic implementation - in production, you'd want more sophisticated logic
+        // More accurate NFL week calculation
         const now = new Date();
-        const seasonStart = new Date(now.getFullYear(), 8, 1); // September 1st
-        const weeksSinceStart = Math.floor((now - seasonStart) / (7 * 24 * 60 * 60 * 1000));
-        return Math.max(1, Math.min(18, weeksSinceStart + 1));
+        const currentYear = now.getFullYear();
+        
+        // NFL season typically starts first Thursday after Labor Day (first Monday in September)
+        // For 2024 season, Week 1 started September 5, 2024
+        const seasonStart = new Date(currentYear, 8, 5); // September 5th as baseline
+        
+        // Calculate weeks since season start
+        const daysSinceStart = Math.floor((now - seasonStart) / (24 * 60 * 60 * 1000));
+        const weeksSinceStart = Math.floor(daysSinceStart / 7);
+        
+        // NFL season is 18 weeks (weeks 1-18)
+        const calculatedWeek = Math.max(1, Math.min(18, weeksSinceStart + 1));
+        
+        console.log(`Current date: ${now.toDateString()}`);
+        console.log(`Season start: ${seasonStart.toDateString()}`);
+        console.log(`Days since start: ${daysSinceStart}`);
+        console.log(`Calculated NFL week: ${calculatedWeek}`);
+        
+        return calculatedWeek;
     }
 
     async loadJSON(filename) {
@@ -130,7 +145,8 @@ class NFLResultsUpdater {
         console.log(`Tracking ${trackedTeams.size} teams:`, Array.from(trackedTeams).join(', '));
 
         // Update results for all weeks from 1 to current week
-        const weeksToCheck = Array.from({length: 12}, (_, i) => i + 1);
+        const weeksToCheck = Array.from({length: this.currentWeek}, (_, i) => i + 1);
+        console.log(`Checking weeks 1-${this.currentWeek} (current week: ${this.currentWeek})`);
         
         for (const week of weeksToCheck) {
             const newGames = await this.fetchNFLResults(week);
