@@ -70,7 +70,8 @@ class SkinsTracker {
                 const row = document.createElement('tr');
                 
                 // Calculate current record for this pick
-                const record = this.calculatePickRecord(player.id, pick.team, pick.type);
+                const teamRecord = this.calculateTeamRecord(pick.team);
+                const recordDisplay = this.formatTeamRecord(teamRecord);
                 
                 row.innerHTML = `
                     <td>
@@ -82,7 +83,7 @@ class SkinsTracker {
                     </td>
                     <td>${pick.team} - ${pick.teamName}</td>
                     <td><span class="pick-${pick.type}">${pick.type}</span></td>
-                    <td>${record.hits}-${record.misses}</td>
+                    <td>${recordDisplay}</td>
                 `;
                 
                 tbody.appendChild(row);
@@ -90,25 +91,33 @@ class SkinsTracker {
         });
     }
 
-    calculatePickRecord(playerId, team, pickType) {
-        let hits = 0;
-        let misses = 0;
+    calculateTeamRecord(team) {
+        let wins = 0;
+        let losses = 0;
+        let ties = 0;
 
         this.results.weeks.forEach(week => {
             const game = week.games.find(g => g.team === team);
-            if (game && game.result !== 'tie') {
-                const pickHit = (pickType === 'wins' && game.result === 'win') ||
-                               (pickType === 'losses' && game.result === 'loss');
-                
-                if (pickHit) {
-                    hits++;
-                } else {
-                    misses++;
+            if (game) {
+                if (game.result === 'win') {
+                    wins++;
+                } else if (game.result === 'loss') {
+                    losses++;
+                } else if (game.result === 'tie') {
+                    ties++;
                 }
             }
         });
 
-        return { hits, misses };
+        return { wins, losses, ties };
+    }
+
+    formatTeamRecord(record) {
+        if (record.ties > 0) {
+            return `${record.wins}-${record.losses}-${record.ties}`;
+        } else {
+            return `${record.wins}-${record.losses}`;
+        }
     }
 
     renderDebts() {

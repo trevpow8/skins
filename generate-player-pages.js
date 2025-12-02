@@ -250,7 +250,8 @@ const template = `<!DOCTYPE html>
             const picksContainer = document.getElementById('player-picks');
             
             player.picks.forEach(pick => {
-                const record = calculatePickRecord(pick, results);
+                const teamRecord = calculateTeamRecord(pick.team, results);
+                const recordDisplay = formatTeamRecord(teamRecord);
                 
                 const pickCard = document.createElement('div');
                 pickCard.className = 'pick-card pick-' + pick.type;
@@ -258,29 +259,39 @@ const template = `<!DOCTYPE html>
                 pickCard.innerHTML = 
                     '<div class="team-name">' + pick.teamName + '</div>' +
                     '<div class="pick-type">' + pick.type + '</div>' +
-                    '<div class="pick-record">' + record.wins + '-' + record.losses + '</div>';
+                    '<div class="pick-record">' + recordDisplay + '</div>';
                 
                 picksContainer.appendChild(pickCard);
             });
         }
         
-        function calculatePickRecord(pick, results) {
+        function calculateTeamRecord(team, results) {
             let wins = 0;
             let losses = 0;
+            let ties = 0;
             
             results.weeks.forEach(week => {
-                const game = week.games.find(g => g.team === pick.team);
-                if (game && game.result !== 'tie') {
-                    if ((pick.type === 'wins' && game.result === 'win') ||
-                        (pick.type === 'losses' && game.result === 'loss')) {
+                const game = week.games.find(g => g.team === team);
+                if (game) {
+                    if (game.result === 'win') {
                         wins++;
-                    } else {
+                    } else if (game.result === 'loss') {
                         losses++;
+                    } else if (game.result === 'tie') {
+                        ties++;
                     }
                 }
             });
             
-            return { wins, losses };
+            return { wins, losses, ties };
+        }
+        
+        function formatTeamRecord(record) {
+            if (record.ties > 0) {
+                return record.wins + '-' + record.losses + '-' + record.ties;
+            } else {
+                return record.wins + '-' + record.losses;
+            }
         }
         
         // Load data when page loads

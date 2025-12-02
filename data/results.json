@@ -2196,6 +2196,203 @@
           "score": "9-20"
         }
       ]
+    },
+    {
+      "week": 13,
+      "games": [
+        {
+          "team": "DET",
+          "opponent": "GB",
+          "result": "loss",
+          "score": "24-31"
+        },
+        {
+          "team": "GB",
+          "opponent": "DET",
+          "result": "win",
+          "score": "31-24"
+        },
+        {
+          "team": "DAL",
+          "opponent": "KC",
+          "result": "win",
+          "score": "31-28"
+        },
+        {
+          "team": "KC",
+          "opponent": "DAL",
+          "result": "loss",
+          "score": "28-31"
+        },
+        {
+          "team": "BAL",
+          "opponent": "CIN",
+          "result": "loss",
+          "score": "14-32"
+        },
+        {
+          "team": "CIN",
+          "opponent": "BAL",
+          "result": "win",
+          "score": "32-14"
+        },
+        {
+          "team": "PHI",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "15-24"
+        },
+        {
+          "team": "CHI",
+          "opponent": "PHI",
+          "result": "win",
+          "score": "24-15"
+        },
+        {
+          "team": "CLE",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "8-26"
+        },
+        {
+          "team": "SF",
+          "opponent": "CLE",
+          "result": "win",
+          "score": "26-8"
+        },
+        {
+          "team": "TEN",
+          "opponent": "JAX",
+          "result": "loss",
+          "score": "3-25"
+        },
+        {
+          "team": "JAX",
+          "opponent": "TEN",
+          "result": "win",
+          "score": "25-3"
+        },
+        {
+          "team": "IND",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "16-20"
+        },
+        {
+          "team": "HOU",
+          "opponent": "IND",
+          "result": "win",
+          "score": "20-16"
+        },
+        {
+          "team": "MIA",
+          "opponent": "NO",
+          "result": "win",
+          "score": "21-17"
+        },
+        {
+          "team": "NO",
+          "opponent": "MIA",
+          "result": "loss",
+          "score": "17-21"
+        },
+        {
+          "team": "NYJ",
+          "opponent": "ATL",
+          "result": "win",
+          "score": "27-24"
+        },
+        {
+          "team": "ATL",
+          "opponent": "NYJ",
+          "result": "loss",
+          "score": "24-27"
+        },
+        {
+          "team": "TB",
+          "opponent": "ARI",
+          "result": "win",
+          "score": "20-17"
+        },
+        {
+          "team": "ARI",
+          "opponent": "TB",
+          "result": "loss",
+          "score": "17-20"
+        },
+        {
+          "team": "CAR",
+          "opponent": "LAR",
+          "result": "win",
+          "score": "31-28"
+        },
+        {
+          "team": "LAR",
+          "opponent": "CAR",
+          "result": "loss",
+          "score": "28-31"
+        },
+        {
+          "team": "SEA",
+          "opponent": "MIN",
+          "result": "win",
+          "score": "26-0"
+        },
+        {
+          "team": "MIN",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "0-26"
+        },
+        {
+          "team": "PIT",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "7-26"
+        },
+        {
+          "team": "BUF",
+          "opponent": "PIT",
+          "result": "win",
+          "score": "26-7"
+        },
+        {
+          "team": "LAC",
+          "opponent": "LV",
+          "result": "win",
+          "score": "31-14"
+        },
+        {
+          "team": "LV",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "14-31"
+        },
+        {
+          "team": "WSH",
+          "opponent": "DEN",
+          "result": "loss",
+          "score": "26-27"
+        },
+        {
+          "team": "DEN",
+          "opponent": "WSH",
+          "result": "win",
+          "score": "27-26"
+        },
+        {
+          "team": "NE",
+          "opponent": "NYG",
+          "result": "win",
+          "score": "33-15"
+        },
+        {
+          "team": "NYG",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "15-33"
+        }
+      ]
     }
   ]
 }
