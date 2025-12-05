@@ -2393,6 +2393,23 @@
           "score": "15-33"
         }
       ]
+    },
+    {
+      "week": 14,
+      "games": [
+        {
+          "team": "DET",
+          "opponent": "DAL",
+          "result": "win",
+          "score": "44-30"
+        },
+        {
+          "team": "DAL",
+          "opponent": "DET",
+          "result": "loss",
+          "score": "30-44"
+        }
+      ]
     }
   ]
 }
