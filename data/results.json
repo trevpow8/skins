@@ -2540,6 +2540,18 @@
           "opponent": "ARI",
           "result": "win",
           "score": "45-17"
+        },
+        {
+          "team": "KC",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "10-20"
+        },
+        {
+          "team": "HOU",
+          "opponent": "KC",
+          "result": "win",
+          "score": "20-10"
         }
       ]
     }

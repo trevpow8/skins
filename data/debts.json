@@ -1,6 +1,6 @@
 {
   "season": "2025",
-  "lastUpdated": "2025-12-08T03:27:54.924Z",
+  "lastUpdated": "2025-12-08T06:16:28.510Z",
   "weeklyResults": [
     {
       "week": 1,
@@ -2441,6 +2441,14 @@
         {
           "playerId": "player5",
           "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
           "team": "MIN",
           "type": "wins",
           "result": "win",
@@ -2494,50 +2502,50 @@
       "playerId": "player1",
       "playerName": "PJ",
       "totalOwed": 1680,
-      "totalOwing": 1834,
-      "netPosition": -154
+      "totalOwing": 1841,
+      "netPosition": -161
     },
     {
       "playerId": "player2",
       "playerName": "Chuck",
       "totalOwed": 2268,
-      "totalOwing": 1736,
-      "netPosition": 532
+      "totalOwing": 1743,
+      "netPosition": 525
     },
     {
       "playerId": "player3",
       "playerName": "Bradley OCIII",
       "totalOwed": 1890,
-      "totalOwing": 1799,
-      "netPosition": 91
+      "totalOwing": 1806,
+      "netPosition": 84
     },
     {
       "playerId": "player4",
       "playerName": "Jet",
       "totalOwed": 1428,
-      "totalOwing": 1876,
-      "netPosition": -448
+      "totalOwing": 1883,
+      "netPosition": -455
     },
     {
       "playerId": "player5",
       "playerName": "Colton",
-      "totalOwed": 1638,
+      "totalOwed": 1680,
       "totalOwing": 1841,
-      "netPosition": -203
+      "netPosition": -161
     },
     {
       "playerId": "player6",
       "playerName": "Pernecky",
       "totalOwed": 1638,
-      "totalOwing": 1841,
-      "netPosition": -203
+      "totalOwing": 1848,
+      "netPosition": -210
     },
     {
       "playerId": "player7",
       "playerName": "Chano",
       "totalOwed": 2142,
-      "totalOwing": 1757,
-      "netPosition": 385
+      "totalOwing": 1764,
+      "netPosition": 378
     }
   ]
 }
