@@ -2552,6 +2552,18 @@
           "opponent": "KC",
           "result": "win",
           "score": "20-10"
+        },
+        {
+          "team": "LAC",
+          "opponent": "PHI",
+          "result": "win",
+          "score": "22-19"
+        },
+        {
+          "team": "PHI",
+          "opponent": "LAC",
+          "result": "loss",
+          "score": "19-22"
         }
       ]
     }

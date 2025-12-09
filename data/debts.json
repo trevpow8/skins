@@ -1,6 +1,6 @@
 {
   "season": "2025",
-  "lastUpdated": "2025-12-08T12:21:09.447Z",
+  "lastUpdated": "2025-12-09T06:21:42.915Z",
   "weeklyResults": [
     {
       "week": 1,
@@ -2465,6 +2465,14 @@
         {
           "playerId": "player7",
           "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
           "team": "CLE",
           "type": "losses",
           "result": "loss",
@@ -2502,50 +2510,50 @@
       "playerId": "player1",
       "playerName": "PJ",
       "totalOwed": 1680,
-      "totalOwing": 1841,
-      "netPosition": -161
+      "totalOwing": 1848,
+      "netPosition": -168
     },
     {
       "playerId": "player2",
       "playerName": "Chuck",
       "totalOwed": 2268,
-      "totalOwing": 1743,
-      "netPosition": 525
+      "totalOwing": 1750,
+      "netPosition": 518
     },
     {
       "playerId": "player3",
       "playerName": "Bradley OCIII",
       "totalOwed": 1890,
-      "totalOwing": 1806,
-      "netPosition": 84
+      "totalOwing": 1813,
+      "netPosition": 77
     },
     {
       "playerId": "player4",
       "playerName": "Jet",
       "totalOwed": 1428,
-      "totalOwing": 1883,
-      "netPosition": -455
+      "totalOwing": 1890,
+      "netPosition": -462
     },
     {
       "playerId": "player5",
       "playerName": "Colton",
       "totalOwed": 1680,
-      "totalOwing": 1841,
-      "netPosition": -161
+      "totalOwing": 1848,
+      "netPosition": -168
     },
     {
       "playerId": "player6",
       "playerName": "Pernecky",
       "totalOwed": 1638,
-      "totalOwing": 1848,
-      "netPosition": -210
+      "totalOwing": 1855,
+      "netPosition": -217
     },
     {
       "playerId": "player7",
       "playerName": "Chano",
-      "totalOwed": 2142,
+      "totalOwed": 2184,
       "totalOwing": 1764,
-      "netPosition": 378
+      "netPosition": 420
     }
   ]
 }
