@@ -7,19 +7,14 @@ on:
     # Monday: 8:15 PM ET (01:15 UTC Tue) 
     # Thursday: 8:15 PM ET (01:15 UTC Fri)
     
-    # Run after Sunday games (Monday 2 AM, 6 AM, 10 AM UTC)
-    - cron: '0 2,6,10 * 9-12,1-2 1'  # Mondays during NFL season (Sep-Dec, Jan-Feb)
-    - cron: '0 2,6,10 * 11-12,1-2 1' # Mondays during NFL season (Nov-Dec, Jan-Feb)
+    # Run after Sunday games (Monday 6 AM UTC)
+    - cron: '0 6 * 9-12,1-2 1'        # Mondays during NFL season (Sep-Dec, Jan-Feb)
     # Run after Monday games (Tuesday 6 AM UTC)  
     - cron: '0 6 * 9-12,1-2 2'        # Tuesdays during NFL season
-    - cron: '0 6 * 11-12,1-2 2'       # Tuesdays during NFL season (Nov-Dec, Jan-Feb)
     # Run after Thursday games (Friday 6 AM UTC)
     - cron: '0 6 * 9-12,1-2 5'        # Fridays during NFL season
-    - cron: '0 6 * 11-12,1-2 5'       # Fridays during NFL season (Nov-Dec, Jan-Feb)
     # Run after Saturday playoff games (Sunday 6 AM UTC)
     - cron: '0 6 * 1-2 0'             # Sundays in Jan-Feb for playoffs
-    # Additional runs to catch any missed games
-    - cron: '0 12 * 11-12,1-2 *'      # Daily at noon during peak season
     
   workflow_dispatch: # Allow manual trigger
 
