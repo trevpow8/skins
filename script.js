@@ -21,9 +21,9 @@ class SkinsTracker {
     async loadData() {
         try {
             const [picksResponse, resultsResponse, debtsResponse] = await Promise.all([
-                fetch('./data/picks.json'),
-                fetch('./data/results.json'),
-                fetch('./data/debts.json')
+                fetch('/data/picks.json'),
+                fetch('/data/results.json'),
+                fetch('/data/debts.json')
             ]);
 
             this.picks = await picksResponse.json();
