@@ -9,6 +9,19 @@ const PORT = process.env.PORT || 8080;
 // Serve static files
 app.use(express.static(__dirname));
 
+// API endpoints for data files (Vercel compatibility)
+app.get('/data/picks.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'data', 'picks.json'));
+});
+
+app.get('/data/results.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'data', 'results.json'));
+});
+
+app.get('/data/debts.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'data', 'debts.json'));
+});
+
 // API endpoint to manually trigger update
 app.post('/api/update', (req, res) => {
     exec('node update-results.js', (error, stdout, stderr) => {
