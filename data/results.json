@@ -2749,6 +2749,18 @@
           "opponent": "DAL",
           "result": "win",
           "score": "34-26"
+        },
+        {
+          "team": "PIT",
+          "opponent": "MIA",
+          "result": "win",
+          "score": "28-15"
+        },
+        {
+          "team": "MIA",
+          "opponent": "PIT",
+          "result": "loss",
+          "score": "15-28"
         }
       ]
     }
