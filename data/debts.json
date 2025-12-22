@@ -1,6 +1,6 @@
 {
   "season": "2025",
-  "lastUpdated": "2025-12-16T06:22:07.671Z",
+  "lastUpdated": "2025-12-22T06:40:39.116Z",
   "weeklyResults": [
     {
       "week": 1,
@@ -2716,57 +2716,214 @@
           "amountOwed": 42
         }
       ]
+    },
+    {
+      "week": 16,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ATL",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "ARI",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "BUF",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYJ",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NYG",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player2",
+          "playerName": "Chuck",
+          "team": "NE",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "PIT",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player3",
+          "playerName": "Bradley OCIII",
+          "team": "CHI",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "DAL",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "HOU",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player5",
+          "playerName": "Colton",
+          "team": "MIN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player6",
+          "playerName": "Pernecky",
+          "team": "MIA",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LAC",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "CLE",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "LV",
+          "type": "losses",
+          "result": "loss",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player7",
+          "playerName": "Chano",
+          "team": "JAX",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
     }
   ],
   "netDebts": [
     {
       "playerId": "player1",
       "playerName": "PJ",
-      "totalOwed": 1848,
-      "totalOwing": 2002,
-      "netPosition": -154
+      "totalOwed": 1932,
+      "totalOwing": 2121,
+      "netPosition": -189
     },
     {
       "playerId": "player2",
       "playerName": "Chuck",
-      "totalOwed": 2436,
-      "totalOwing": 1904,
-      "netPosition": 532
+      "totalOwed": 2604,
+      "totalOwing": 2009,
+      "netPosition": 595
     },
     {
       "playerId": "player3",
       "playerName": "Bradley OCIII",
-      "totalOwed": 2058,
-      "totalOwing": 1967,
-      "netPosition": 91
+      "totalOwed": 2226,
+      "totalOwing": 2072,
+      "netPosition": 154
     },
     {
       "playerId": "player4",
       "playerName": "Jet",
-      "totalOwed": 1596,
-      "totalOwing": 2044,
-      "netPosition": -448
+      "totalOwed": 1680,
+      "totalOwing": 2163,
+      "netPosition": -483
     },
     {
       "playerId": "player5",
       "playerName": "Colton",
-      "totalOwed": 1806,
-      "totalOwing": 2009,
-      "netPosition": -203
+      "totalOwed": 1890,
+      "totalOwing": 2128,
+      "netPosition": -238
     },
     {
       "playerId": "player6",
       "playerName": "Pernecky",
-      "totalOwed": 1722,
-      "totalOwing": 2023,
-      "netPosition": -301
+      "totalOwed": 1764,
+      "totalOwing": 2149,
+      "netPosition": -385
     },
     {
       "playerId": "player7",
       "playerName": "Chano",
-      "totalOwed": 2394,
-      "totalOwing": 1911,
-      "netPosition": 483
+      "totalOwed": 2562,
+      "totalOwing": 2016,
+      "netPosition": 546
     }
   ]
 }
