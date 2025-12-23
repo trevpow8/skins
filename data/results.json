@@ -2946,6 +2946,18 @@
           "opponent": "BAL",
           "result": "win",
           "score": "28-24"
+        },
+        {
+          "team": "IND",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "27-48"
+        },
+        {
+          "team": "SF",
+          "opponent": "IND",
+          "result": "win",
+          "score": "48-27"
         }
       ]
     }
