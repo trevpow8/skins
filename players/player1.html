@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJ - NFL Skins Tracker</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .bio-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .player-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .player-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .player-name {
+            font-size: 3em;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .bio-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .bio-section h2 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .bio-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #555;
+            margin: 0;
+        }
+        
+        .quote-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .quote-section::before {
+            content: '"';
+            font-size: 5em;
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            opacity: 0.3;
+        }
+        
+        .quote-text {
+            font-size: 1.5em;
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .picks-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .picks-section h2 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        .picks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .pick-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .pick-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pick-wins {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+        }
+        
+        .pick-losses {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fef2f2 100%);
+        }
+        
+        .team-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #1f2937;
+        }
+        
+        .pick-type {
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .pick-record {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .pick-wins .pick-record {
+            color: #059669;
+        }
+        
+        .pick-losses .pick-record {
+            color: #dc2626;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: background-color 0.2s;
+            font-weight: 500;
+        }
+        
+        .back-button:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bio-container">
+        <a href="../index.html" class="back-button">
+            ← Back to Main Page
+        </a>
+        
+        <!-- Section 1: Name and Photo -->
+        <div class="player-header">
+            <img src="../img/tip.png" alt="PJ" class="player-avatar">
+            <h1 class="player-name">PJ</h1>
+        </div>
+        
+        <!-- Section 2: About Paragraph -->
+        <div class="bio-section">
+            <h2>About PJ</h2>
+            <p class="bio-text">PJ</p>
+        </div>
+        
+        <!-- Section 3: Quote -->
+        <div class="quote-section">
+            <p class="quote-text">(Really High Pitched) Third floor lets go!</p>
+        </div>
+        
+        <!-- Section 4: 2025 Picks -->
+        <div class="picks-section">
+            <h2>2025 Season Picks</h2>
+            <div class="picks-grid" id="player-picks">
+                <!-- Picks will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Extract player ID from filename
+        const path = window.location.pathname;
+        const filename = path.split('/').pop();
+        const playerId = filename.replace('.html', '');
+        
+        // Load and display player data
+        async function loadPlayerData() {
+            try {
+                const [picksResponse, resultsResponse] = await Promise.all([
+                    fetch('../data/picks.json'),
+                    fetch('../data/results.json')
+                ]);
+                
+                const picks = await picksResponse.json();
+                const results = await resultsResponse.json();
+                
+                const player = picks.players.find(p => p.id === playerId);
+                if (!player) {
+                    console.error('Player not found:', playerId);
+                    document.body.innerHTML = '<div style="text-align: center; padding: 50px;"><h1>Player not found</h1><a href="../index.html">← Back to Main Page</a></div>';
+                    return;
+                }
+                
+                // Render picks
+                renderPlayerPicks(player, results);
+                
+            } catch (error) {
+                console.error('Error loading player data:', error);
+                document.body.innerHTML = '<div style="text-align: center; padding: 50px;"><h1>Error loading data</h1><p>' + error.message + '</p><a href="../index.html">← Back to Main Page</a></div>';
+            }
+        }
+        
+        function renderPlayerPicks(player, results) {
+            const picksContainer = document.getElementById('player-picks');
+            
+            player.picks.forEach(pick => {
+                const teamRecord = calculateTeamRecord(pick.team, results);
+                const recordDisplay = formatTeamRecord(teamRecord);
+                
+                const pickCard = document.createElement('div');
+                pickCard.className = 'pick-card pick-' + pick.type;
+                
+                pickCard.innerHTML = 
+                    '<div class="team-name">' + pick.teamName + '</div>' +
+                    '<div class="pick-type">' + pick.type + '</div>' +
+                    '<div class="pick-record">' + recordDisplay + '</div>';
+                
+                picksContainer.appendChild(pickCard);
+            });
+        }
+        
+        function calculateTeamRecord(team, results) {
+            let wins = 0;
+            let losses = 0;
+            let ties = 0;
+            
+            results.weeks.forEach(week => {
+                const game = week.games.find(g => g.team === team);
+                if (game) {
+                    if (game.result === 'win') {
+                        wins++;
+                    } else if (game.result === 'loss') {
+                        losses++;
+                    } else if (game.result === 'tie') {
+                        ties++;
+                    }
+                }
+            });
+            
+            return { wins, losses, ties };
+        }
+        
+        function formatTeamRecord(record) {
+            if (record.ties > 0) {
+                return record.wins + '-' + record.losses + '-' + record.ties;
+            } else {
+                return record.wins + '-' + record.losses;
+            }
+        }
+        
+        // Load data when page loads
+        loadPlayerData();
+    </script>
+</body>
+</html>
