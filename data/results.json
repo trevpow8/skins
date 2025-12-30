@@ -3143,6 +3143,18 @@
           "opponent": "SF",
           "result": "loss",
           "score": "38-42"
+        },
+        {
+          "team": "ATL",
+          "opponent": "LAR",
+          "result": "win",
+          "score": "27-24"
+        },
+        {
+          "team": "LAR",
+          "opponent": "ATL",
+          "result": "loss",
+          "score": "24-27"
         }
       ]
     }
