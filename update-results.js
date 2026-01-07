@@ -7,25 +7,25 @@ const axios = require('axios');
 class NFLResultsUpdater {
     constructor() {
         this.dataDir = path.join(__dirname, 'data');
-        this.currentSeason = new Date().getFullYear();
+        // 2025 NFL season (started Sept 2024, ends Feb 2025)
+        this.currentSeason = 2025;
         this.currentWeek = this.getCurrentNFLWeek();
     }
 
     getCurrentNFLWeek() {
         // More accurate NFL week calculation
         const now = new Date();
-        const currentYear = now.getFullYear();
         
-        // NFL season typically starts first Thursday after Labor Day (first Monday in September)
-        // For 2024 season, Week 1 started September 5, 2024
-        const seasonStart = new Date(currentYear, 8, 5); // September 5th as baseline
+        // 2025 NFL season started September 5, 2024 (Week 1)
+        // This handles cross-year seasons properly
+        const seasonStart = new Date(2024, 8, 5); // September 5, 2024
         
         // Calculate weeks since season start
         const daysSinceStart = Math.floor((now - seasonStart) / (24 * 60 * 60 * 1000));
         const weeksSinceStart = Math.floor(daysSinceStart / 7);
         
-        // NFL season is 18 weeks (weeks 1-18)
-        const calculatedWeek = Math.max(1, Math.min(18, weeksSinceStart + 1));
+        // NFL season is 18 weeks (weeks 1-18), then playoffs (weeks 19-22)
+        const calculatedWeek = Math.max(1, Math.min(22, weeksSinceStart + 1));
         
         console.log(`Current date: ${now.toDateString()}`);
         console.log(`Season start: ${seasonStart.toDateString()}`);
