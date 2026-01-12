@@ -224,8 +224,19 @@ class SkinsTracker {
 
         const header = document.createElement('div');
         header.className = 'week-header';
+        
+        // Display playoff weeks differently
+        let weekLabel;
+        if (weekData.week >= 19) {
+            const playoffWeek = weekData.week - 18;
+            const playoffNames = ['Wild Card', 'Divisional', 'Conference Championship', 'Super Bowl'];
+            weekLabel = playoffWeek <= 4 ? `Playoff - ${playoffNames[playoffWeek - 1]}` : `Playoff Week ${playoffWeek}`;
+        } else {
+            weekLabel = `Week ${weekData.week}`;
+        }
+        
         header.innerHTML = `
-            <span>Week ${weekData.week} - ${weekData.hits.length} Hit${weekData.hits.length !== 1 ? 's' : ''}</span>
+            <span>${weekLabel} - ${weekData.hits.length} Hit${weekData.hits.length !== 1 ? 's' : ''}</span>
             <span class="expand-icon">▼</span>
         `;
 

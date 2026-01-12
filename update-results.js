@@ -59,9 +59,13 @@ class NFLResultsUpdater {
     async fetchNFLResults(week) {
         try {
             // Using ESPN API for NFL scores
-            const url = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=${week}&seasontype=2&dates=${this.currentSeason}`;
+            // seasontype: 2 = regular season, 3 = playoffs
+            const seasonType = week >= 19 ? 3 : 2;
+            // For playoffs, week number needs to be adjusted (playoffs are weeks 1-4)
+            const apiWeek = week >= 19 ? week - 18 : week;
+            const url = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=${apiWeek}&seasontype=${seasonType}&dates=${this.currentSeason}`;
             
-            console.log(`Fetching NFL results for week ${week}...`);
+            console.log(`Fetching NFL results for week ${week} (API week ${apiWeek}, season type ${seasonType})...`);
             const response = await axios.get(url, {
                 timeout: 10000,
                 headers: {
