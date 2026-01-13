@@ -15,19 +15,65 @@ class NFLResultsUpdater {
     getCurrentNFLWeek() {
         // More accurate NFL week calculation
         const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1; // 1-12
+        const currentDay = now.getDate();
         
-        // 2025 NFL season started September 5, 2024 (Week 1)
-        // This handles cross-year seasons properly
-        const seasonStart = new Date(2024, 8, 5); // September 5, 2024
+        // Determine which season we're in
+        // NFL seasons start in September and end in February
+        // If we're in Jan-Feb, we're in the season that started the previous year
+        const seasonYear = currentMonth >= 9 ? currentYear : currentYear - 1;
+        const seasonStart = new Date(seasonYear, 8, 5); // September 5
+        
+        // Regular season ends around first week of January
+        // Playoffs start the weekend after regular season ends
+        const regularSeasonEnd = new Date(seasonYear + 1, 0, 5); // January 5 of next year
         
         // Calculate weeks since season start
         const daysSinceStart = Math.floor((now - seasonStart) / (24 * 60 * 60 * 1000));
         const weeksSinceStart = Math.floor(daysSinceStart / 7);
         
-        // NFL season is 18 weeks (weeks 1-18), then playoffs (weeks 19-22)
-        const calculatedWeek = Math.max(1, Math.min(22, weeksSinceStart + 1));
+        let calculatedWeek;
+        
+        if (now < regularSeasonEnd && weeksSinceStart < 18) {
+            // Regular season: weeks 1-18
+            calculatedWeek = Math.max(1, Math.min(18, weeksSinceStart + 1));
+        } else {
+            // We're in playoffs or past regular season
+            // Playoffs: weeks 19-22
+            // Week 19: Wild Card (first weekend in Jan, typically Jan 11-12)
+            // Week 20: Divisional (second weekend in Jan, typically Jan 18-19)
+            // Week 21: Conference Championship (third weekend in Jan, typically Jan 25-26)
+            // Week 22: Super Bowl (first Sunday in Feb, typically Feb 2)
+            
+            // If we're in January, determine playoff week based on date
+            if (currentMonth === 1) {
+                if (currentDay <= 12) {
+                    calculatedWeek = 19; // Wild Card weekend
+                } else if (currentDay <= 19) {
+                    calculatedWeek = 20; // Divisional weekend
+                } else if (currentDay <= 26) {
+                    calculatedWeek = 21; // Conference Championship weekend
+                } else {
+                    calculatedWeek = 22; // Super Bowl (late Jan, but typically early Feb)
+                }
+            } else if (currentMonth === 2) {
+                // February - Super Bowl
+                calculatedWeek = 22;
+            } else {
+                // Past season or before playoffs
+                calculatedWeek = Math.min(22, Math.max(19, 19 + Math.floor((daysSinceStart - 126) / 7)));
+            }
+        }
+        
+        // TESTING: Uncomment the line below to test a specific playoff week
+        // return 19; // Wild Card
+        // return 20; // Divisional
+        // return 21; // Conference Championship
+        // return 22; // Super Bowl
         
         console.log(`Current date: ${now.toDateString()}`);
+        console.log(`Season year: ${seasonYear}`);
         console.log(`Season start: ${seasonStart.toDateString()}`);
         console.log(`Days since start: ${daysSinceStart}`);
         console.log(`Calculated NFL week: ${calculatedWeek}`);

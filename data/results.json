@@ -3354,6 +3354,83 @@
           "score": "24-26"
         }
       ]
+    },
+    {
+      "week": 19,
+      "games": [
+        {
+          "team": "CAR",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "31-34"
+        },
+        {
+          "team": "LAR",
+          "opponent": "CAR",
+          "result": "win",
+          "score": "34-31"
+        },
+        {
+          "team": "CHI",
+          "opponent": "GB",
+          "result": "win",
+          "score": "31-27"
+        },
+        {
+          "team": "GB",
+          "opponent": "CHI",
+          "result": "loss",
+          "score": "27-31"
+        },
+        {
+          "team": "JAX",
+          "opponent": "BUF",
+          "result": "loss",
+          "score": "24-27"
+        },
+        {
+          "team": "BUF",
+          "opponent": "JAX",
+          "result": "win",
+          "score": "27-24"
+        },
+        {
+          "team": "PHI",
+          "opponent": "SF",
+          "result": "loss",
+          "score": "19-23"
+        },
+        {
+          "team": "SF",
+          "opponent": "PHI",
+          "result": "win",
+          "score": "23-19"
+        },
+        {
+          "team": "NE",
+          "opponent": "LAC",
+          "result": "win",
+          "score": "16-3"
+        },
+        {
+          "team": "LAC",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "3-16"
+        },
+        {
+          "team": "PIT",
+          "opponent": "HOU",
+          "result": "loss",
+          "score": "6-30"
+        },
+        {
+          "team": "HOU",
+          "opponent": "PIT",
+          "result": "win",
+          "score": "30-6"
+        }
+      ]
     }
   ]
 }
