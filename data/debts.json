@@ -1,6 +1,6 @@
 {
   "season": "2025",
-  "lastUpdated": "2026-01-13T19:31:42.109Z",
+  "lastUpdated": "2026-01-18T06:24:54.384Z",
   "weeklyResults": [
     {
       "week": 1,
@@ -3304,57 +3304,78 @@
           "amountOwed": 42
         }
       ]
+    },
+    {
+      "week": 20,
+      "hits": [
+        {
+          "playerId": "player1",
+          "playerName": "PJ",
+          "team": "DEN",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        },
+        {
+          "playerId": "player4",
+          "playerName": "Jet",
+          "team": "SEA",
+          "type": "wins",
+          "result": "win",
+          "amountOwed": 42
+        }
+      ]
     }
   ],
   "netDebts": [
     {
       "playerId": "player1",
       "playerName": "PJ",
-      "totalOwed": 2310,
-      "totalOwing": 2422,
-      "netPosition": -112
+      "totalOwed": 2352,
+      "totalOwing": 2429,
+      "netPosition": -77
     },
     {
       "playerId": "player2",
       "playerName": "Chuck",
       "totalOwed": 3024,
-      "totalOwing": 2303,
-      "netPosition": 721
+      "totalOwing": 2317,
+      "netPosition": 707
     },
     {
       "playerId": "player3",
       "playerName": "Bradley OCIII",
       "totalOwed": 2520,
-      "totalOwing": 2387,
-      "netPosition": 133
+      "totalOwing": 2401,
+      "netPosition": 119
     },
     {
       "playerId": "player4",
       "playerName": "Jet",
-      "totalOwed": 1890,
-      "totalOwing": 2492,
-      "netPosition": -602
+      "totalOwed": 1932,
+      "totalOwing": 2499,
+      "netPosition": -567
     },
     {
       "playerId": "player5",
       "playerName": "Colton",
       "totalOwed": 2184,
-      "totalOwing": 2443,
-      "netPosition": -259
+      "totalOwing": 2457,
+      "netPosition": -273
     },
     {
       "playerId": "player6",
       "playerName": "Pernecky",
       "totalOwed": 2016,
-      "totalOwing": 2471,
-      "netPosition": -455
+      "totalOwing": 2485,
+      "netPosition": -469
     },
     {
       "playerId": "player7",
       "playerName": "Chano",
       "totalOwed": 2898,
-      "totalOwing": 2324,
-      "netPosition": 574
+      "totalOwing": 2338,
+      "netPosition": 560
     }
   ]
 }
