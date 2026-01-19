@@ -3458,6 +3458,30 @@
           "opponent": "SEA",
           "result": "loss",
           "score": "6-41"
+        },
+        {
+          "team": "NE",
+          "opponent": "HOU",
+          "result": "win",
+          "score": "28-16"
+        },
+        {
+          "team": "HOU",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "16-28"
+        },
+        {
+          "team": "CHI",
+          "opponent": "LAR",
+          "result": "loss",
+          "score": "17-20"
+        },
+        {
+          "team": "LAR",
+          "opponent": "CHI",
+          "result": "win",
+          "score": "20-17"
         }
       ]
     }
