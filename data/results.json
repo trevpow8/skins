@@ -3484,6 +3484,35 @@
           "score": "20-17"
         }
       ]
+    },
+    {
+      "week": 21,
+      "games": [
+        {
+          "team": "DEN",
+          "opponent": "NE",
+          "result": "loss",
+          "score": "7-10"
+        },
+        {
+          "team": "NE",
+          "opponent": "DEN",
+          "result": "win",
+          "score": "10-7"
+        },
+        {
+          "team": "SEA",
+          "opponent": "LAR",
+          "result": "win",
+          "score": "31-27"
+        },
+        {
+          "team": "LAR",
+          "opponent": "SEA",
+          "result": "loss",
+          "score": "27-31"
+        }
+      ]
     }
   ]
 }
